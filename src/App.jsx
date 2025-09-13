@@ -163,8 +163,11 @@ function App() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex flex-col">
-              <h1 className="text-lg sm:text-xl font-semibold text-foreground">Guess the Country</h1>
-              <p className="text-xs sm:text-sm text-muted-foreground">From its neighbours</p>
+              <h1 className="text-lg sm:text-xl font-semibold text-foreground">Neighbours Game</h1>
+              <div className="text-xs sm:text-sm text-muted-foreground">
+                <p>Guess the country</p>
+                <p>From its neighbours</p>
+              </div>
             </div>
             <div className="flex items-center space-x-2 sm:space-x-4">
               <div className="flex flex-col items-center space-y-1">
