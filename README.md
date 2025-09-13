@@ -1,6 +1,6 @@
 # Country Neighbors Game 🌍
 
-A fun geography guessing game where you identify countries by their neighboring countries and flags.
+A fun geography guessing game where you identify countries by their neighboring countries and flags. Inspired by the University Challenge starter questions format ([example](https://youtu.be/Qrgl45ZiaSg?t=7)).
 
 ## How to Play
 
