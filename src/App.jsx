@@ -17,6 +17,7 @@ function App() {
   const [isCorrect, setIsCorrect] = useState(false)
   const [hardMode, setHardMode] = useState(false)
   const [wasRevealed, setWasRevealed] = useState(false)
+  const [streak, setStreak] = useState(0)
 
   useEffect(() => {
     const countriesWithBorders = countriesData.filter(country =>
@@ -85,6 +86,9 @@ function App() {
 
     if (correct) {
       setScore(prev => prev + 1)
+      setStreak(prev => prev + 1)
+    } else {
+      setStreak(0)
     }
   }
 
@@ -98,6 +102,7 @@ function App() {
     setWasRevealed(true) // Track that this was revealed
     setShowFeedback(true)
     setTotalQuestions(prev => prev + 1)
+    setStreak(0) // Reset streak on reveal
   }
 
   const handleNextQuestion = () => {
@@ -106,6 +111,14 @@ function App() {
 
   const getFlagPath = (countryCode) => {
     return `https://raw.githubusercontent.com/hampusborgos/country-flags/refs/heads/main/svg/${countryCode.toLowerCase()}.svg`
+  }
+
+  const getStreakEmoji = (streak) => {
+    if (streak >= 10) return '🔥'
+    if (streak >= 5) return '⚡'
+    if (streak >= 3) return '🎯'
+    if (streak >= 1) return '✨'
+    return ''
   }
 
   if (!gameStarted || !currentQuestion) {
@@ -137,10 +150,19 @@ function App() {
               <p className="text-sm text-muted-foreground ml-8">Guess the country from its neighbours</p>
             </div>
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <Trophy className="h-5 w-5 text-muted-foreground" />
-                <span className="text-lg font-medium text-foreground">Score: {score} / {totalQuestions}</span>
+              <div className="flex flex-col items-center space-y-1">
+                <div className="flex items-center space-x-2">
+                  <Trophy className="h-5 w-5 text-muted-foreground" />
+                  <span className="text-lg font-medium text-foreground">Score: {score} / {totalQuestions}</span>
+                </div>
+                {streak > 0 && (
+                  <div className="flex items-center space-x-1">
+                    <span className="text-sm text-muted-foreground">Streak: {streak}</span>
+                    <span className="text-sm">{getStreakEmoji(streak)}</span>
+                  </div>
+                )}
               </div>
+              <div className="h-6 w-px bg-border"></div>
               <Button
                 variant="ghost"
                 size="sm"
@@ -151,6 +173,7 @@ function App() {
                 <Settings className="h-5 w-5" />
                 <span className="ml-1 text-sm">{hardMode ? 'Hard' : 'Easy'}</span>
               </Button>
+              <div className="h-6 w-px bg-border"></div>
               <Button
                 variant="ghost"
                 size="sm"
