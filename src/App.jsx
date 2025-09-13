@@ -142,40 +142,40 @@ function App() {
           <div className="flex items-center justify-between">
             <div className="flex flex-col">
               <div className="flex items-center space-x-2">
-                <h1 className="text-2xl font-semibold text-foreground">Neighbours</h1>
+                <h1 className="text-xl sm:text-2xl font-semibold text-foreground">Neighbours</h1>
               </div>
-              <p className="text-sm text-muted-foreground">Guess the country from its neighbours</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Guess the country from its neighbours</p>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <div className="flex flex-col items-center space-y-1">
-                <div className="flex items-center space-x-2">
-                  <Trophy className="h-5 w-5 text-muted-foreground" />
-                  <span className="text-lg font-medium text-foreground">Score: {score} / {totalQuestions}</span>
+                <div className="flex items-center space-x-1 sm:space-x-2">
+                  <Trophy className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
+                  <span className="text-sm sm:text-lg font-medium text-foreground">{score}/{totalQuestions}</span>
                 </div>
                 {streak > 0 && (
                   <div className="flex items-center space-x-1">
-                    <span className="text-sm text-muted-foreground">Streak: {streak}</span>
-                    <span className="text-sm">{getStreakEmoji(streak)}</span>
+                    <span className="text-xs sm:text-sm text-muted-foreground">Streak: {streak}</span>
+                    <span className="text-xs sm:text-sm">{getStreakEmoji(streak)}</span>
                   </div>
                 )}
               </div>
-              <div className="h-6 w-px bg-border"></div>
+              <div className="h-6 w-px bg-border hidden sm:block"></div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setHardMode(!hardMode)}
-                className="h-auto p-2"
+                className="h-auto p-1 sm:p-2"
                 aria-label={hardMode ? "Switch to Easy Mode" : "Switch to Hard Mode"}
               >
-                <Settings className="h-5 w-5" />
-                <span className="ml-1 text-sm">{hardMode ? 'Hard' : 'Easy'}</span>
+                <Settings className="h-4 w-4 sm:h-5 sm:w-5" />
+                <span className="ml-1 text-xs sm:text-sm">{hardMode ? 'Hard' : 'Easy'}</span>
               </Button>
-              <div className="h-6 w-px bg-border"></div>
+              <div className="h-6 w-px bg-border hidden sm:block"></div>
               <Button
                 variant="ghost"
                 size="sm"
                 asChild
-                className="h-auto p-2"
+                className="h-auto p-1 sm:p-2"
               >
                 <a
                   href="https://github.com/anthropics/claude-code"
@@ -183,7 +183,7 @@ function App() {
                   rel="noopener noreferrer"
                   aria-label="View source code on GitHub"
                 >
-                  <Github className="h-5 w-5" />
+                  <Github className="h-4 w-4 sm:h-5 sm:w-5" />
                 </a>
               </Button>
             </div>
@@ -241,8 +241,8 @@ function App() {
                       className="text-lg p-4"
                       autoFocus
                     />
-                  <div className="flex justify-center gap-3">
-                    <Button type="submit" size="lg" className="px-8">
+                  <div className="flex flex-col sm:flex-row justify-center gap-3">
+                    <Button type="submit" size="lg" className="px-6 sm:px-8">
                       Submit Answer
                       <Send className="ml-2 h-4 w-4" />
                     </Button>
@@ -251,7 +251,7 @@ function App() {
                       variant="outline"
                       size="lg"
                       onClick={handleRevealAnswer}
-                      className="px-6"
+                      className="px-4 sm:px-6"
                     >
                       <Eye className="mr-2 h-4 w-4" />
                       Reveal
