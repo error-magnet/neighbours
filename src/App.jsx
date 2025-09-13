@@ -119,7 +119,9 @@ function App() {
 
   const handleShowHint = () => {
     setShowHint(true)
-    setStreak(0) // Reset streak when using hint
+    if (hardMode) {
+      setStreak(0) // Reset streak when using hint in hard mode
+    }
   }
 
   const handleNextQuestion = () => {
@@ -195,10 +197,10 @@ function App() {
                 size="sm"
                 onClick={() => setHardMode(!hardMode)}
                 className="h-auto p-1 sm:p-2"
-                aria-label={hardMode ? "Switch to Easy Mode" : "Switch to Hard Mode"}
+                aria-label={hardMode ? "Switch to Normal Mode" : "Switch to Hard Mode"}
               >
                 <Settings className="h-4 w-4 sm:h-5 sm:w-5" />
-                <span className="ml-1 text-xs sm:text-sm">{hardMode ? 'Hard' : 'Easy'}</span>
+                <span className="ml-1 text-xs sm:text-sm">{hardMode ? 'Hard' : 'Normal'}</span>
               </Button>
               <div className="h-6 w-px bg-border hidden sm:block"></div>
               <Button
@@ -273,7 +275,7 @@ function App() {
                         e.target.style.display = 'none'
                       }}
                     />
-                    <span className="text-xs text-muted-foreground">⚠️ Streak reset</span>
+                    {hardMode && <span className="text-xs text-muted-foreground">⚠️ Streak reset</span>}
                   </div>
                 )}
 
