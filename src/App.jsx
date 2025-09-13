@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Trophy, ChevronRight, Send, Github, Settings, Eye } from 'lucide-react'
+import { Trophy, ChevronRight, Send, Github, Settings, Eye, Lightbulb } from 'lucide-react'
 import countriesData from '../countries_with_borders.json'
 import { Button } from './components/ui/button'
 import { Card, CardContent } from './components/ui/card'
@@ -18,6 +18,7 @@ function App() {
   const [hardMode, setHardMode] = useState(false)
   const [wasRevealed, setWasRevealed] = useState(false)
   const [streak, setStreak] = useState(0)
+  const [showHint, setShowHint] = useState(false)
 
   useEffect(() => {
     const countriesWithBorders = countriesData.filter(country =>
@@ -51,6 +52,7 @@ function App() {
     setGameStarted(true)
     setIsCorrect(false)
     setWasRevealed(false)
+    setShowHint(false)
   }
 
   const normalizeString = (str) => {
@@ -113,6 +115,11 @@ function App() {
     setShowFeedback(true)
     setTotalQuestions(prev => prev + 1)
     setStreak(0) // Reset streak on reveal
+  }
+
+  const handleShowHint = () => {
+    setShowHint(true)
+    setStreak(0) // Reset streak when using hint
   }
 
   const handleNextQuestion = () => {
@@ -254,6 +261,22 @@ function App() {
                   {hardMode && <span className="block text-sm font-normal text-muted-foreground mt-1">Hard Mode: Flags only!</span>}
                 </h3>
 
+                {/* Hint Display */}
+                {showHint && (
+                  <div className="flex flex-col items-center space-y-2 mb-4 p-4 bg-muted/50 rounded-lg">
+                    <span className="text-sm text-muted-foreground">Hint: Here's the flag</span>
+                    <img
+                      src={getFlagPath(currentQuestion.code)}
+                      alt={`Flag hint`}
+                      className="w-20 h-auto rounded border border-border"
+                      onError={(e) => {
+                        e.target.style.display = 'none'
+                      }}
+                    />
+                    <span className="text-xs text-muted-foreground">⚠️ Streak reset</span>
+                  </div>
+                )}
+
               {!showFeedback ? (
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <Input
@@ -269,6 +292,18 @@ function App() {
                       Submit Answer
                       <Send className="ml-2 h-4 w-4" />
                     </Button>
+                    {!showHint && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="lg"
+                        onClick={handleShowHint}
+                        className="px-4 sm:px-6"
+                      >
+                        <Lightbulb className="mr-2 h-4 w-4" />
+                        Hint
+                      </Button>
+                    )}
                     <Button
                       type="button"
                       variant="outline"
