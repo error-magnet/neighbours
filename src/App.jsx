@@ -29,6 +29,17 @@ function App() {
     }
   }, [])
 
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'Enter' && showFeedback) {
+        handleNextQuestion()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyPress)
+    return () => window.removeEventListener('keydown', handleKeyPress)
+  }, [showFeedback])
+
   const generateQuestion = (availableCountries) => {
     if (availableCountries.length === 0) return
 
@@ -106,6 +117,17 @@ function App() {
 
   const handleNextQuestion = () => {
     generateQuestion(countries)
+
+    // Scroll to neighbors section on mobile for better UX
+    setTimeout(() => {
+      const neighborsSection = document.querySelector('[data-neighbors-section]')
+      if (neighborsSection) {
+        neighborsSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
+      }
+    }, 100)
   }
 
   const getFlagPath = (countryCode) => {
@@ -141,10 +163,8 @@ function App() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex flex-col">
-              <div className="flex items-center space-x-2">
-                <h1 className="text-xl sm:text-2xl font-semibold text-foreground">Neighbours</h1>
-              </div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Guess the country from its neighbours</p>
+              <h1 className="text-lg sm:text-xl font-semibold text-foreground">Guess the Country</h1>
+              <p className="text-xs sm:text-sm text-muted-foreground">From its neighbours</p>
             </div>
             <div className="flex items-center space-x-2 sm:space-x-4">
               <div className="flex flex-col items-center space-y-1">
@@ -196,7 +216,7 @@ function App() {
         <Card className="w-full max-w-2xl mx-auto">
           <CardContent className="p-6 space-y-6">
             {/* Neighbors with Flags */}
-            <Card className="bg-muted/50">
+            <Card className="bg-muted/50" data-neighbors-section>
               <CardContent className="pt-6">
                 <h3 className="text-lg font-semibold text-foreground mb-6 text-center">
                   The Neighbours
