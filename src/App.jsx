@@ -204,7 +204,7 @@ function App() {
                 <h3 className="text-lg font-semibold text-foreground mb-6 text-center">
                   The Neighbours
                 </h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-items-center">
                 {currentQuestion.borders.map((border, index) => (
                   <div key={index} className="flex flex-col items-center space-y-2">
                       <img
