@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { Globe, Trophy, ChevronRight, Send, Github, Settings, Eye } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Trophy, ChevronRight, Send, Github, Settings, Eye } from 'lucide-react'
 import countriesData from '../countries_with_borders.json'
 import { Button } from './components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card'
+import { Card, CardContent } from './components/ui/card'
 import { Badge } from './components/ui/badge'
 import { Input } from './components/ui/input'
 
@@ -52,7 +52,6 @@ function App() {
     if (!userAnswer.trim()) return
 
     const normalizedAnswer = normalizeString(userAnswer)
-    const normalizedCorrect = normalizeString(currentQuestion.name)
 
     // Create variations of the correct country name
     const correctName = currentQuestion.name
@@ -126,8 +125,7 @@ function App() {
       <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardContent className="p-6">
-            <div className="flex items-center justify-center space-x-2 text-primary">
-              <Globe className="h-6 w-6 animate-spin" />
+            <div className="flex items-center justify-center text-primary">
               <span className="text-lg font-medium text-foreground">Loading game...</span>
             </div>
           </CardContent>
@@ -144,10 +142,9 @@ function App() {
           <div className="flex items-center justify-between">
             <div className="flex flex-col">
               <div className="flex items-center space-x-2">
-                <Globe className="h-6 w-6 text-primary" />
                 <h1 className="text-2xl font-semibold text-foreground">Neighbours</h1>
               </div>
-              <p className="text-sm text-muted-foreground ml-8">Guess the country from its neighbours</p>
+              <p className="text-sm text-muted-foreground">Guess the country from its neighbours</p>
             </div>
             <div className="flex items-center space-x-4">
               <div className="flex flex-col items-center space-y-1">
